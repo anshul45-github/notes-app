@@ -3,6 +3,7 @@
 import { useSession, signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { ThemeToggle } from '../components/ThemeToggle'
 
 interface Note {
   id: number
@@ -163,10 +164,10 @@ export default function Dashboard() {
 
   if (status === 'loading' || loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 dark:border-indigo-400 mx-auto"></div>
+          <p className="mt-4 text-gray-600 dark:text-gray-300">Loading...</p>
         </div>
       </div>
     )
@@ -177,15 +178,16 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-gray-900">My Notes</h1>
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">My Notes</h1>
             </div>
             <div className="flex items-center space-x-4">
+              <ThemeToggle />
               <div className="flex items-center space-x-2">
                 {session.user?.image && (
                   <img
@@ -194,11 +196,11 @@ export default function Dashboard() {
                     className="h-8 w-8 rounded-full"
                   />
                 )}
-                <span className="text-sm text-gray-700">{session.user?.name}</span>
+                <span className="text-sm text-gray-700 dark:text-gray-300">{session.user?.name}</span>
               </div>
               <button
                 onClick={() => signOut()}
-                className="text-sm text-gray-500 hover:text-gray-700 transition duration-150 ease-in-out"
+                className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition duration-150 ease-in-out"
               >
                 Sign out
               </button>
@@ -213,7 +215,7 @@ export default function Dashboard() {
         <div className="mb-8">
           <button
             onClick={() => setShowAddForm(!showAddForm)}
-            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-900 transition duration-150 ease-in-out"
           >
             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -224,11 +226,11 @@ export default function Dashboard() {
 
         {/* Add Note Form */}
         {showAddForm && (
-          <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Add New Note</h2>
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8 transition-colors duration-300">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Add New Note</h2>
             <form onSubmit={handleAddNote} className="space-y-4">
               <div>
-                <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Title
                 </label>
                 <input
@@ -236,14 +238,13 @@ export default function Dashboard() {
                   id="title"
                   value={newNote.title}
                   onChange={(e) => setNewNote({ ...newNote, title: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                  style={{color: 'black'}}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors duration-300"
                   placeholder="Enter note title..."
                   required
                 />
               </div>
               <div>
-                <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="content" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Content
                 </label>
                 <textarea
@@ -251,8 +252,7 @@ export default function Dashboard() {
                   rows={4}
                   value={newNote.content}
                   onChange={(e) => setNewNote({ ...newNote, content: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                  style={{color: 'black'}}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors duration-300"
                   placeholder="Enter note content..."
                   required
                 />
@@ -261,7 +261,7 @@ export default function Dashboard() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 transition duration-150 ease-in-out"
+                  className="px-4 py-2 bg-indigo-600 dark:bg-indigo-500 text-white text-sm font-medium rounded-md hover:bg-indigo-700 dark:hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800 disabled:opacity-50 transition duration-150 ease-in-out"
                 >
                   {submitting ? 'Adding...' : 'Add Note'}
                 </button>
@@ -282,11 +282,11 @@ export default function Dashboard() {
 
         {/* Edit Note Form */}
         {editingNote && (
-          <div className="bg-white rounded-lg shadow-md p-6 mb-8 border-2 border-blue-200">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Edit Note</h2>
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8 border-2 border-blue-200 dark:border-blue-600 transition-colors duration-300">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Edit Note</h2>
             <form onSubmit={handleUpdateNote} className="space-y-4">
               <div>
-                <label htmlFor="edit-title" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="edit-title" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Title
                 </label>
                 <input
@@ -294,14 +294,13 @@ export default function Dashboard() {
                   id="edit-title"
                   value={editFormData.title}
                   onChange={(e) => setEditFormData({ ...editFormData, title: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  style={{color: 'black'}}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-300"
                   placeholder="Enter note title..."
                   required
                 />
               </div>
               <div>
-                <label htmlFor="edit-content" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="edit-content" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Content
                 </label>
                 <textarea
@@ -309,8 +308,7 @@ export default function Dashboard() {
                   rows={4}
                   value={editFormData.content}
                   onChange={(e) => setEditFormData({ ...editFormData, content: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  style={{color: 'black'}}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-300"
                   placeholder="Enter note content..."
                   required
                 />
@@ -319,14 +317,14 @@ export default function Dashboard() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 transition duration-150 ease-in-out"
+                  className="px-4 py-2 bg-blue-600 dark:bg-blue-500 text-white text-sm font-medium rounded-md hover:bg-blue-700 dark:hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-800 disabled:opacity-50 transition duration-150 ease-in-out"
                 >
                   {submitting ? 'Updating...' : 'Update Note'}
                 </button>
                 <button
                   type="button"
                   onClick={cancelEdit}
-                  className="px-4 py-2 bg-gray-300 text-gray-700 text-sm font-medium rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-150 ease-in-out"
+                  className="px-4 py-2 bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-200 text-sm font-medium rounded-md hover:bg-gray-400 dark:hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 dark:focus:ring-offset-gray-800 transition duration-150 ease-in-out"
                 >
                   Cancel
                 </button>
@@ -342,7 +340,7 @@ export default function Dashboard() {
             onClick={cancelDeleteNote}
           >
             <div 
-              className="bg-white rounded-lg shadow-xl p-6 max-w-md w-full mx-4"
+              className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 max-w-md w-full mx-4 transition-colors duration-300"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center mb-4">
@@ -357,11 +355,11 @@ export default function Dashboard() {
                   </svg>
                 </div>
                 <div className="ml-3">
-                  <h3 className="text-lg font-medium text-gray-900">Delete Note</h3>
+                  <h3 className="text-lg font-medium text-gray-900 dark:text-white">Delete Note</h3>
                 </div>
               </div>
               <div className="mb-4">
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 dark:text-gray-300">
                   Are you sure you want to delete "<span className="font-semibold">{deleteConfirmNote.title}</span>"? 
                   This action cannot be undone.
                 </p>
@@ -369,13 +367,13 @@ export default function Dashboard() {
               <div className="flex justify-end space-x-3">
                 <button
                   onClick={cancelDeleteNote}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-600 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 dark:focus:ring-offset-gray-800"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={confirmDeleteNote}
-                  className="px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                  className="px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 rounded-md transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 dark:focus:ring-offset-gray-800"
                 >
                   Delete
                 </button>
@@ -388,7 +386,7 @@ export default function Dashboard() {
         {notes.length === 0 ? (
           <div className="text-center py-12">
             <svg
-              className="mx-auto h-12 w-12 text-gray-400"
+              className="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -400,19 +398,19 @@ export default function Dashboard() {
                 d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
               />
             </svg>
-            <h3 className="mt-2 text-sm font-medium text-gray-900">No notes yet</h3>
-            <p className="mt-1 text-sm text-gray-500">Get started by creating your first note.</p>
+            <h3 className="mt-2 text-sm font-medium text-gray-900 dark:text-white">No notes yet</h3>
+            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Get started by creating your first note.</p>
           </div>
         ) : (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {notes.map((note) => (
-              <div key={note.id} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-150 ease-in-out">
+              <div key={note.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 hover:shadow-lg dark:hover:shadow-xl transition duration-150 ease-in-out">
                 <div className="flex justify-between items-start mb-3">
-                  <h3 className="text-lg font-semibold text-gray-900 truncate">{note.title}</h3>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white truncate">{note.title}</h3>
                   <div className="flex space-x-2">
                     <button
                       onClick={() => handleEditNote(note)}
-                      className="text-gray-400 hover:text-blue-500 transition duration-150 ease-in-out"
+                      className="text-gray-400 dark:text-gray-500 hover:text-blue-500 dark:hover:text-blue-400 transition duration-150 ease-in-out"
                       title="Edit note"
                     >
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -426,7 +424,7 @@ export default function Dashboard() {
                     </button>
                     <button
                       onClick={() => handleDeleteNote(note)}
-                      className="text-gray-400 hover:text-red-500 transition duration-150 ease-in-out"
+                      className="text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 transition duration-150 ease-in-out"
                       title="Delete note"
                     >
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -440,8 +438,8 @@ export default function Dashboard() {
                     </button>
                   </div>
                 </div>
-                <p className="text-gray-600 text-sm mb-4 line-clamp-3">{note.content}</p>
-                <p className="text-xs text-gray-500">{formatDate(note.createdAt)}</p>
+                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3">{note.content}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">{formatDate(note.createdAt)}</p>
               </div>
             ))}
           </div>
