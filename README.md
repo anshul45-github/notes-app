@@ -1,29 +1,44 @@
-# 🧠 Notes App with Google Login
+# Note Taking Application
 
-A simple full-stack web app built using **Next.js**, **React**, **NextAuth.js**, **Prisma**, and **MySQL**.
-Users can sign in with **Google SSO**, and securely create, view, and delete their personal notes.
+A modern, full-stack note-taking application built with Next.js and TypeScript. Features secure Google authentication, real-time note management, and a beautiful dark/light theme toggle. Users can sign in with Google SSO and securely create, view, edit, and delete their personal notes with a clean, responsive interface.
+
+## 🌐 Live Demo
+
+🔗 **[View Live Application](https://notes-app-one-swart.vercel.app/)**
+
+## 📸 Screenshot
+
+![Notes App Demo](./public/demo.png)
 
 ## 🚀 Features
 
-- 🔐 Google Login using NextAuth.js
-- 🧾 Add, view, and delete notes
-- 🧱 Notes stored in MySQL via Prisma ORM
-- 🎨 Clean responsive UI with Tailwind CSS
-- 🔒 Protected routes (only accessible after login)
+- 🔐 **Google Authentication** - Secure login using NextAuth.js
+- 📝 **Note Management** - Create, view, edit, and delete notes
+- 🌙 **Dark Mode Support** - Toggle between light and dark themes
+- 📱 **Responsive Design** - Works seamlessly on all devices
+- 🔒 **Protected Routes** - Secure access to user data
+- 💾 **Persistent Storage** - Notes stored securely in MySQL database
 
-## 🧩 Tech Stack
+## 🛠️ Technologies Used
 
-- **Frontend**: Next.js (App Router)
-- **Authentication**: NextAuth.js with Google Provider
-- **Database**: MySQL with Prisma ORM
-- **Styling**: Tailwind CSS
+- **Next.js** - React framework with App Router
+- **TypeScript** - Type-safe JavaScript
+- **Prisma** - Database ORM and query builder
+- **NextAuth.js** - Authentication library with Google Provider
+- **MySQL** - Relational database
+- **Tailwind CSS** - Utility-first CSS framework
 
-## Setup Instructions
+## 🚀 Local Development Setup
+
+### Prerequisites
+- Node.js (v18 or higher)
+- MySQL database
+- Google OAuth credentials
 
 ### 1. Clone the repository
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/anshul45-github/notes-app
 cd notes-app
 ```
 
@@ -33,77 +48,70 @@ cd notes-app
 npm install
 ```
 
-### 3. Setup Environment Variables
+### 3. Environment Configuration
 
-Create a `.env` file in the root with:
+Create a `.env` file in the root directory (use `.env.example` as template):
 
 ```env
 DATABASE_URL="mysql://username:password@localhost:3306/notesdb"
 NEXTAUTH_URL="http://localhost:3000"
-NEXTAUTH_SECRET="your_secret"
+NEXTAUTH_SECRET="your_secret_key_here"
 GOOGLE_CLIENT_ID="your_google_client_id"
 GOOGLE_CLIENT_SECRET="your_google_client_secret"
 ```
 
-### 4. Setup Prisma and Database
+### 4. Database Setup
+
+Push the Prisma schema to your database:
 
 ```bash
-npx prisma migrate dev --name init
+npx prisma db push
 ```
 
-### 6. Run the Application
+### 5. Start Development Server
 
 ```bash
 npm run dev
 ```
 
-Visit `http://localhost:3000` to see the application.
+Visit `http://localhost:3000` to see the application running locally.
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 notes-app/
-├── .next
-├── app/
-│   ├── api/
-│   │   ├── auth/[...nextauth]/route.ts
-│   │   └── notes/
-│   │       ├── route.ts
-│   │       └── [id]/route.ts
-│   ├── dashboard/
-│   │   └── page.tsx
-│   ├── globals.css
-│   ├── layout.tsx
-│   ├── page.tsx
-│   └── providers.tsx
-├── lib/
-│   ├── auth.ts
-│   └── prisma.ts
-├── node_modules/
-├── prisma/
-│   └── dev.db
-│   └── schema.prisma
-├── types/
-├── .env
-├── .eslintrc.json
-├── .gitignore
-├── next-env.d.ts
-├── next.config.js
-├── package-lock.json
-├── package.json
-├── postcss.config.js
-├── README.md
-├── tailwind.config.js
-└── tsconfig.json
+├── app/                    # Next.js App Router
+│   ├── api/               # API routes
+│   │   ├── auth/          # NextAuth.js authentication
+│   │   └── notes/         # Notes CRUD operations
+│   ├── components/        # Reusable UI components
+│   ├── contexts/          # React contexts (Theme)
+│   ├── dashboard/         # Dashboard page
+│   └── globals.css        # Global styles
+├── lib/                   # Utility libraries
+│   ├── auth.ts           # Authentication configuration
+│   └── prisma.ts         # Database client
+├── prisma/               # Database schema and migrations
+│   └── schema.prisma     # Prisma schema
+├── types/                # TypeScript type definitions
+├── public/               # Static assets
+└── [config files]        # Next.js, Tailwind, TypeScript configs
 ```
 
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
 ## 🧑‍💻 Author
-**Anshul Mendiratta**<br>
-B.Tech in Data Science and Engineering, IIT Mandi<br>
+
+**Anshul Mendiratta**  
+B.Tech in Data Science and Engineering, IIT Mandi  
 Passionate about web development, AI, and building tools for creators.
 
-## 📸 Demo
-![Demo Image](./public/demo.png)
+---
 
-### 💬 Summary:
-This project demonstrates ability to build a full-stack app with authentication, database integration, and clean UI — aligning perfectly with the internship requirements for **Software Development Engineering (Web)**.
+⭐ If you found this project helpful, please consider giving it a star!
