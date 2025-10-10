@@ -3,6 +3,7 @@
 import { useSession, signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import { ThemeToggle } from '../components/ThemeToggle'
 
 interface Note {
@@ -190,9 +191,11 @@ export default function Dashboard() {
               <ThemeToggle />
               <div className="flex items-center space-x-2">
                 {session.user?.image && (
-                  <img
+                  <Image
                     src={session.user.image}
                     alt="Profile"
+                    width={32}
+                    height={32}
                     className="h-8 w-8 rounded-full"
                   />
                 )}
@@ -360,7 +363,7 @@ export default function Dashboard() {
               </div>
               <div className="mb-4">
                 <p className="text-sm text-gray-600 dark:text-gray-300">
-                  Are you sure you want to delete "<span className="font-semibold">{deleteConfirmNote.title}</span>"? 
+                  Are you sure you want to delete &ldquo;<span className="font-semibold">{deleteConfirmNote.title}</span>&rdquo;? 
                   This action cannot be undone.
                 </p>
               </div>
